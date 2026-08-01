@@ -1,0 +1,51 @@
+[GameNr "102633639"]
+[TimeControl "1+7"]
+[Variant "FFA"]
+[RuleVariants "DeadKingWalking EnPassant PromoteTo=D"]
+[StartFen4 "4PC"]
+[Red "chi4ako"]
+[RedElo "2051"]
+[Blue "win1997"]
+[BlueElo "2427"]
+[Yellow "IKIGAI-50"]
+[YellowElo "2341"]
+[Green "panguaman"]
+[GreenElo "2286"]
+[Result "chi4ako: 29 - win1997: 10 - IKIGAI-50: 44 - panguaman: 28"]
+[Termination "(Yellow +20)"]
+[Site "www.chess.com/variants/4-player-chess/game/102633639"]
+[Date "Sat May 16 2026 01:46:50 GMT+0000 (Coordinated Universal Time)"]
+[CurrentMove "113"]
+
+1. f2-f4 .. Na10-c9 .. h13-h11 .. m10-l10
+2. f4-f5 .. b8-d8 .. i13-i12 .. Bn9-m10
+3. f5-f6 .. b5-c5 .. g13-g12 .. m8-l8
+4. f6-f7 .. Ba6-b5 .. Ne14-f12 .. m6-k6
+5. j2-j3 .. Na5-c6 .. h11-h10 .. m4-k4
+6. f7-f8=D .. O-O .. h10-h9 .. k4xj3
+7. k2xj3 .. b7-d7 .. h9-h8 .. Nn10-m8
+8. Bi1-j2 .. d7-e7 .. h8-h7=D .. k6-j6
+9. Qf8-j4 .. Ra6-a7 .. Qh7-h13 .. Rn4xQj4
+10. Ne1-f3 .. e7-f7 .. Nf12-h11 .. Nn5-l6
+11. Nj1-i3 .. f7-g7 .. Nh11-g9 .. j6-i6
+12. d2-d4 .. d8-e8 .. Bf14-g13 .. m7-k7
+13. e2-e3 .. Bb5xBf1 .. Ng9xe8 .. O-O
+14. Qg1xBf1 .. Qa8xNe8 .. e13-e12 .. k7-j7
+15. Ni3-k2 .. Ba9-c7 .. Nj14-k12 .. Rj4-n4
+16. Nk2-i3 .. b11-d11 .. e12-e11 .. Nm8-k9
+17. Nf3-g5 .. Qe8xe3 .. Qh13-h11 .. Nk9-l11
+18. d4xc5 .. Qe3xc5 .. f13-f11 .. Bn6-m7
+19. Ng5-e6 .. Qc5-d6 .. Bg13-f14 .. Nl6-m8
+20. Qf1-f5+ .. Nc6-e5 .. Qh11-b5+ .. Rn4xb4#
+21. Bj2xm5 .. Qb5xRb4 .. j7-i7
+22. Bm5-k3 .. Qb4-b5 .. i6-h6
+23. Ni3-j5 .. Qb5-h11 .. Nm8-k9
+24. Qf5-g6 .. e11-e10 .. Bm10xRd1
+25. Nj5xi7 .. e10-e9 .. h6xg7=D
+26. Qg6-i4 .. Bi14-h13 .. Qg7-f6
+27. O-O .. e9-e8 .. Bd1-m10
+28. Ne6-f4 .. Rd14-e14 .. Qf6-e7
+29. g2-g4 .. i12-i11 .. Qn7-n5
+30. h2-h3 .. Qh11xQn5 .. Kn10-n11T
+31. Qi4xRn9+# .. Qn5xQn9
+32. R

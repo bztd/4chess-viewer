@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=4ChessViewer
+Comment=Four-player FFA chess game reader
+Exec=4chessviewer
+Icon=4chessviewer
+Type=Application
+Terminal=false
+Categories=Utility;
+Keywords=chess;
