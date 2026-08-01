@@ -1,0 +1,36 @@
+<component type="desktop">
+  <id>io.github.bztd.4ChessViewer</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>4ChessViewer</name>
+  <summary>Four-player FFA chess game reader</summary>
+  <description>
+    <p>
+      It allows you to easily view four-person FFA=Q chess games.
+    </p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/bztd/4chess-viewer/refs/heads/main/data/Captura-de-pantalla.png</image>
+      <caption>Application window</caption>
+    </screenshot>
+  </screenshots>
+  <categories>
+    <category>Utility</category>
+  </categories>
+
+  <url type="bugtracker">https://github.com/bztd/4chess-viewer/issues</url>
+  <url type="help">https://github.com/bztd/4chess-viewer</url>
+  <developer_name>ChessViewer</developer_name>
+  <launchable type="desktop-id">4ChessViewer.desktop</launchable>
+  <provides>
+    <binary>4chessviewer</binary>
+  </provides>
+  <translation type="gettext">4chessviewer</translation>
+  <content_rating type="oars-1.1">
+    <content_attribute id="social-info">mild</content_attribute>
+  </content_rating>
+  <releases>
+    <release version="1.0.0" date="2026-07-21"></release>
+  </releases>
+</component>
