@@ -21,7 +21,7 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type" FORCE)
 endif()
 
-find_package(wxWidgets ${VERSION_wxW} REQUIRED COMPONENTS core base)
+find_package(wxWidgets ${VERSION_wxW} REQUIRED COMPONENTS core base richtext)
 
 if(NOT wxWidgets_FOUND)
     message(FATAL_ERROR "No se encontró wxWidgets ${VERSION_wxW}.")
