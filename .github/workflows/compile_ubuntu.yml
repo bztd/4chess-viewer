@@ -12,7 +12,7 @@ jobs:
   compile_latest_and_test:
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    permissions:
+    #permissions:
       #contents: write
 
     steps:
