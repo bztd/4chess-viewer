@@ -15,15 +15,16 @@ project(4ChessViewer
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(VERSION_wxW 3.2.4)
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type" FORCE)
 endif()
 
-find_package(wxWidgets 3.3.2 REQUIRED COMPONENTS core base)
+find_package(wxWidgets ${VERSION_wxW} REQUIRED COMPONENTS core base)
 
 if(NOT wxWidgets_FOUND)
-    message(FATAL_ERROR "No se encontró wxWidgets 3.3.2.")
+    message(FATAL_ERROR "No se encontró wxWidgets ${VERSION_wxW}.")
 endif()
 
 include(${wxWidgets_USE_FILE})
