@@ -72,6 +72,9 @@ target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra)
 
 include(GNUInstallDirs)
 
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    OUTPUT_NAME "4chessviewer"
+)
 install(TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
