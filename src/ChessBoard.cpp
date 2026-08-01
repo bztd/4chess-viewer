@@ -425,6 +425,7 @@ bool ChessBoard::IsValidMove(Corxy posInit, Corxy posEnd, bool validate_turn){
             if(piece==PieceType::ROOK){break;}
             if(invalidMove==0){break;}
 
+            [[fallthrough]];
         case PieceType::BISHOP:
             if(std::abs(posEnd.x-posInit.x)==std::abs(posEnd.y-posInit.y)){
                 int im,jm;
