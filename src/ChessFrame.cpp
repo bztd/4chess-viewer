@@ -305,9 +305,12 @@ void ChessFrame::OnQuit(wxCommandEvent& event) {
 void ChessFrame::OnLoadFile(wxCommandEvent& event) {
     wxUnusedVar(event);
 
-    wxFileDialog openFileDialog(this, _("Abrir archivo de texto"), "", "",
-                       "Archivos de Ajedrez (*.pgn4)|*.pgn4|Texto plano (*.txt)|*.txt|Todos los archivos (*.*)|*.*",
-                       wxFD_OPEN | wxFD_FILE_MUST_EXIST);//wxFD_MULTIPLE
+    wxFileDialog openFileDialog(
+                                this,
+                                _("Abrir juego"),
+                                "", "",
+                                _("Archivos de partida ")+"(*.txt;*.pgn4)|*.txt;*.pgn4",
+                                wxFD_OPEN | wxFD_FILE_MUST_EXIST);//wxFD_MULTIPLE
 
     if(openFileDialog.ShowModal() == wxID_CANCEL) {
         return;

@@ -24,8 +24,8 @@ ChessFiles::ChessFiles(
     Bind(wxEVT_DATAVIEW_ITEM_ACTIVATED, &ChessFiles::CargarItemEnBoardYPGN, this);
     //data={wxVariant("1eefefefef"),wxVariant("1eefefefef"),wxVariant("1eefefefef")};
 
-    //SetTextValue("Nuevo ID", 1, 0);
-    //SetTextValue("Juan Pérez Modificado", 1, 1);
+    //SetTextValue("Nue", 1, 0);
+    //SetTextValue("Jua", 1, 1);
     //Update();
 }
 void ChessFiles::CargarItemEnBoardYPGN(wxDataViewEvent& event){//doble click
