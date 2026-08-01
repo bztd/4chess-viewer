@@ -1,0 +1,42 @@
+name: compile_ubuntu
+
+on: [push]
+
+# env:
+  # BUILD_TYPE: Release
+
+permissions:
+  contents: read
+
+jobs:
+  compile_latest_and_test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      #contents: write
+
+    steps:
+      - name: Checkout_git
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 15
+      - name: install_packages
+        run: |
+             sudo apt-get update
+             sudo apt-get install appstream appstream-util cmake desktop-file-utils doxygen gettext libwxgtk3.2-dev ninja-build pandoc xvfb at-spi2-core dbus po4a lintian weston tidy
+      - name: validate_appdata
+        run: |
+             appstream-util validate data/4ChessViewer.appdata.xml
+      - name: configure
+        run: |
+             export CXXFLAGS="-Wall -Wextra -ansi -Werror -Wpedantic"
+             mkdir build
+             touch build build/build.ninja
+             cd build
+             cmake -G "Ninja" ..
+             cd ..
+      - name: compile
+        run: |
+             cd build
+             cmake --build .
+             cd ..
