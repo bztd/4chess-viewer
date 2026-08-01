@@ -94,10 +94,6 @@ private:
     wxColourPickerCtrl* s_c_piece_black;
     wxColourPickerCtrl* s_c_piece_yellow;
 
-    void onCancel(wxCommandEvent& event){
-        //Close(true);
-    }
-
     void onAccept(wxCommandEvent& event){
         ptr_c_p->setColorCasillaBlack(s_c_casilla_black->GetColour().GetAsString(wxC2S_HTML_SYNTAX));
         ptr_c_p->setColorCasillaWhite(s_c_casilla_white->GetColour().GetAsString(wxC2S_HTML_SYNTAX));

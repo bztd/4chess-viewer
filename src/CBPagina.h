@@ -2,6 +2,7 @@
 #define CBPAGINA_H_INCLUDED
 
 #include <tuple>
+#include <list>
 
 #include "Common.h"
 #include "CBTurn.h"

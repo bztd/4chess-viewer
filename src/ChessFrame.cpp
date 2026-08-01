@@ -99,6 +99,8 @@ void ChessFrame::runTimer(){
     }
 }
 void ChessFrame::onAutoPlay(wxCommandEvent& event){
+    wxUnusedVar(event);
+
     runTimer();
 }
 void ChessFrame::onTimer(wxTimerEvent& event) {
@@ -183,21 +185,29 @@ void ChessFrame::_Status(wxString msg){
     timer_clean_status.StartOnce(TIME_CLEAN_STATUS);
 }
 void ChessFrame::onCleanStatus(wxTimerEvent& event){
+    wxUnusedVar(event);
+
     SetStatusText("");
 }
 void ChessFrame::onGoToInicioDePartida(wxCommandEvent& event){
+    wxUnusedVar(event);
+
     chessBoard->restoreDesdePagina(0);
     chessNotation->setJugada(0);
 
     Refresh();
 }
 void ChessFrame::onGoToFinDePartida(wxCommandEvent& event){
+    wxUnusedVar(event);
+
     chessBoard->goToLastPage();
     chessNotation->goToLastMovimiento();
 
     Refresh();
 }
 void ChessFrame::onPreviousJugada(wxCommandEvent& event){
+    wxUnusedVar(event);
+
     size_t indice = chessBoard->getIndiceDeJugada();
 
     if(indice !=0){
@@ -213,6 +223,8 @@ void ChessFrame::onPreviousJugada(wxCommandEvent& event){
 }
 
 void ChessFrame::onNextJugada(wxCommandEvent& event){
+    wxUnusedVar(event);
+
     nextMovement();
 }
 
@@ -285,10 +297,14 @@ void ChessFrame::onKeyDown(wxKeyEvent& event) {
 }
 
 void ChessFrame::OnQuit(wxCommandEvent& event) {
+    wxUnusedVar(event);
+
     Close(true);
 }
 
 void ChessFrame::OnLoadFile(wxCommandEvent& event) {
+    wxUnusedVar(event);
+
     wxFileDialog openFileDialog(this, _("Abrir archivo de texto"), "", "",
                        "Archivos de Ajedrez (*.pgn4)|*.pgn4|Texto plano (*.txt)|*.txt|Todos los archivos (*.*)|*.*",
                        wxFD_OPEN | wxFD_FILE_MUST_EXIST);//wxFD_MULTIPLE
@@ -317,6 +333,8 @@ void ChessFrame::SavePath(wxString path){
 }
 
 void ChessFrame::OnAbout(wxCommandEvent& event) {
+    wxUnusedVar(event);
+
     wxMessageBox("This program is licensed under the terms of the "
                  "GNU General Public License version 3.\n"
                  "Available online under:\n"
@@ -330,6 +348,7 @@ void ChessFrame::Reset(){
     chessBoard->Reset();
 }
 void ChessFrame::onOpenOptionStyleBoardDialog(wxCommandEvent& event) {
+    wxUnusedVar(event);
 
     StyleBoard  dlg(this, chessParameters);
     dlg.ShowModal();

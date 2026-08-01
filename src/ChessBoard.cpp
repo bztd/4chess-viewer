@@ -143,7 +143,9 @@ bool ChessBoard::IsPlayableCell(int row, int col) const {
     return false;
 }
 
-void ChessBoard::OnPaint(wxPaintEvent& event) {
+void ChessBoard::OnPaint(wxPaintEvent& event){
+    wxUnusedVar(event);
+
     wxPaintDC dc(this);
 
     wxSize size = GetClientSize();

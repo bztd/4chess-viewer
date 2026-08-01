@@ -78,8 +78,6 @@ public:
                    const wxSize& size = wxDefaultSize,
                    long style = wxRE_MULTILINE);
 
-    virtual ~ChessNotation();
-
     std::vector<int> getNextMovement();
 
     void Reset();
@@ -87,10 +85,8 @@ public:
 
     void setFCBrestorePosition(std::function<void(long)> f);
     void setFCFloadGameCB(std::function<void()> f);
-    void InsertTextoFormateado(const wxString& texto);
     void LoadPGN(wxString path);
     bool InterpretPgn(wxString path);
-    void AplicarEstiloTitulo();
     wxPoint ConvertPosition(wxString pos);
     void setStyleParameter(ParametrosDeEstilo *p);
     long goToNextMove(bool show_mark=true);
@@ -117,7 +113,6 @@ private:
     void DrawMark();//resaltado de jugada actual en pgn
     void setMovementStyle();
     void OnKeyDown(wxKeyEvent& event);
-    void OnTextChanged(wxCommandEvent& event);//borrar
     void OnPGNClick(wxMouseEvent& event);
     void goTofirstMovimiento();
 

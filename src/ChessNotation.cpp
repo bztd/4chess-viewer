@@ -7,13 +7,11 @@ ChessNotation::ChessNotation(wxWindow* parent,
                                 const wxSize& _size,
                                 long style)
     : wxRichTextCtrl(parent, id, value, pos, _size, style){
-    // Configuración inicial
+
     SetBackgroundColour(*wxBLACK);
     Bind(wxEVT_LEFT_DOWN, &ChessNotation::OnPGNClick, this);
 
 }
-
-ChessNotation::~ChessNotation() {}
 
 long ChessNotation::goToNextMove(bool show_mark){//primero goToNextMove() y luego getNextMovement()
     turno++;
@@ -250,23 +248,6 @@ void ChessNotation::setMovementStyle(){
     Thaw();//refresca, para que se carge con "estilo"
 }
 
-// Método personalizado: insertar texto con negrita
-void ChessNotation::InsertTextoFormateado(const wxString& texto){
-    BeginBold();
-    BeginTextColour(wxColour(0, 0, 180));
-        WriteText(texto);
-    EndTextColour();
-    EndBold();
-}
-
-// Método personalizado: aplicar estilo de título
-void ChessNotation::AplicarEstiloTitulo(){
-    BeginFontSize(18);
-    BeginBold();
-    BeginAlignment(wxTEXT_ALIGNMENT_CENTRE);
-        // El texto se escribirá con este estilo hasta llamar End*()
-}
-
 void ChessNotation::setValuesForPosition(const long& pos){//mover a frame junto con el libro de board
 
     Element* temp_E_anterior = nullptr;
@@ -426,11 +407,6 @@ void ChessNotation::setStyleParameter(ParametrosDeEstilo *p){
     P=p;
 
     setStyle();
-}
-// Evento: texto cambiado
-void ChessNotation::OnTextChanged(wxCommandEvent& event){
-    // Tu lógica aquí
-    event.Skip();
 }
 
 // se asigna la funcion de la clase madre para orquestar con las otras clases el evento
