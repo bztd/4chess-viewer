@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
   <id>io.github.bztd.4ChessViewer</id>
   <metadata_license>CC0-1.0</metadata_license>
@@ -19,8 +20,10 @@
     <category>Utility</category>
   </categories>
 
+  <url type="homepage"https://github.com/bztd/4chess-viewer</url>
   <url type="bugtracker">https://github.com/bztd/4chess-viewer/issues</url>
   <url type="help">https://github.com/bztd/4chess-viewer</url>
+
   <developer_name>ChessViewer</developer_name>
   <launchable type="desktop-id">4ChessViewer.desktop</launchable>
   <provides>
