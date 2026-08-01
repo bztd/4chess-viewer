@@ -80,6 +80,10 @@ install(FILES data/4ChessViewer.png
     DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/512x512/apps
 )
 
-install(FILES ${CMAKE_BINARY_DIR}/4ChessViewer.desktop
+install(FILES data/4ChessViewer.desktop
     DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
+)
+
+install(FILES data/4ChessViewer.appdata.xml
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/appdata
 )
