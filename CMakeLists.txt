@@ -68,8 +68,6 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     ${wxWidgets_CXX_FLAGS}
 )
 
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra)
-
 include(GNUInstallDirs)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
