@@ -28,6 +28,12 @@ jobs:
       - name: validate_appdata
         run: |
              appstream-util validate data/4ChessViewer.appdata.xml
+      - name: cache_wxwidgets
+        id: cache_wx
+        uses: actions/cache@v6
+        with:
+          path: /opt/wxW-Temp
+          key: wxW-${{ env.WX_VERSION }}-${{ hashFiles('.github/workflows/compile_ubuntu.yml') }}
       - name: build_wxwidgets
         if: steps.cache_wx.outputs.cache-hit != 'true'
         run: |
