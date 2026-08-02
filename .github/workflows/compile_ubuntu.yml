@@ -2,11 +2,12 @@ name: compile_ubuntu
 
 on: [push]
 
-# env:
-  # BUILD_TYPE: Release
-
 permissions:
   contents: read
+  
+env:
+  WX_VERSION: "3.3.3"
+  # BUILD_TYPE: Release
 
 jobs:
   compile_latest_and_test:
@@ -20,13 +21,26 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 15
-      - name: install_packages
-        run: |
-             sudo apt-get update
-             sudo apt-get install appstream appstream-util cmake desktop-file-utils doxygen gettext libwxgtk3.2-dev ninja-build pandoc xvfb at-spi2-core dbus po4a lintian weston tidy
       - name: validate_appdata
         run: |
              appstream-util validate data/4ChessViewer.appdata.xml
+      - name: install_packages
+        run: |
+             sudo apt-get update
+             sudo apt-get install appstream appstream-util cmake desktop-file-utils doxygen gettext ninja-build pandoc xvfb at-spi2-core dbus po4a lintian weston tidy
+      - name: build_wxwidgets
+        if: steps.cache_wx.outputs.cache-hit != 'true'
+        run: |
+             wget -q https://github.com/wxWidgets/wxWidgets/releases/download/v${{ env.WX_VERSION }}/wxWidgets-${{ env.WX_VERSION }}.tar.bz2
+             tar xjf wxWidgets-${{ env.WX_VERSION }}.tar.bz2
+             cd wxWidgets-${{ env.WX_VERSION }}
+             mkdir build && cd build
+             cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=/usr -DwxBUILD_SHARED=ON ..
+             ninja
+             DESTDIR=/opt/wxW-Temp ninja install
+      - name: install_wxwidgets
+        run: |
+             sudo cp -a /opt/wxW-Temp/. /usr/
       - name: configure
         run: |
              export CXXFLAGS="-Wall -Wextra -ansi -Werror -Wpedantic"
