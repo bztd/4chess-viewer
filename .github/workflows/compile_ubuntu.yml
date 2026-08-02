@@ -41,7 +41,7 @@ jobs:
       - name: install_wxwidgets
         run: |
              sudo cp -a /opt/wxW-Temp/usr/ /usr/
-             ls /opt/wxW-Temp/
+             ls /opt/wxW-Temp/usr/
       - name: configure
         run: |
              export CXXFLAGS="-Wall -Wextra -ansi -Werror -Wpedantic"
