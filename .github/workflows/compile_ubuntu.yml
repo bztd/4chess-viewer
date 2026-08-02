@@ -34,7 +34,7 @@ jobs:
              wget -q https://github.com/wxWidgets/wxWidgets/releases/download/v${{ env.WX_VERSION }}/wxWidgets-${{ env.WX_VERSION }}.tar.bz2
              tar xjf wxWidgets-${{ env.WX_VERSION }}.tar.bz2
              cd wxWidgets-${{ env.WX_VERSION }}
-             mkdir build && cd build
+             mkdir Sbuild && cd Sbuild
              cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=/usr -DwxBUILD_SHARED=ON ..
              ninja
              DESTDIR=/opt/wxW-Temp ninja install
