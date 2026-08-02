@@ -24,7 +24,7 @@ jobs:
       - name: install_packages
         run: |
              sudo apt-get update
-             sudo apt-get install appstream appstream-util cmake desktop-file-utils doxygen gettext ninja-build pandoc xvfb at-spi2-core dbus po4a lintian weston tidy
+             sudo apt-get install appstream appstream-util cmake desktop-file-utils doxygen gettext ninja-build pandoc xvfb at-spi2-core dbus po4a lintian weston tidy fuse libfuse2 libgtk-3-dev
       - name: validate_appdata
         run: |
              appstream-util validate data/4ChessViewer.appdata.xml
