@@ -11,9 +11,9 @@ permissions:
 jobs:
   compile_latest_and_test:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
-    #permissions:
-      #contents: write
+    timeout-minutes: 30
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout_git
@@ -31,12 +31,39 @@ jobs:
         run: |
              export CXXFLAGS="-Wall -Wextra -ansi -Werror -Wpedantic"
              mkdir build
-             touch build build/build.ninja
              cd build
              cmake -G "Ninja" ..
-             cd ..
       - name: compile
         run: |
              cd build
              cmake --build .
-             cd ..
+      - name: download_linuxdeploy #appImage
+        #if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          wget -q https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+          chmod +x linuxdeploy-x86_64.AppImage
+      - name: appimage_Image
+        #if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          mkdir -p AppDir/usr/bin
+          cp build/4chessviewer AppDir/usr/bin/
+          chmod +x AppDir/usr/bin/4chessviewer
+          ./linuxdeploy-x86_64.AppImage \
+            --appdir AppDir \
+            --desktop-file data/4ChessViewer.desktop \
+            --icon-file data/4ChessViewer.png \
+            --output appimage
+      - name: upload_artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: 4ChessViewer-ubuntu-${{ github.sha }}
+          path: ./*.AppImage
+          retention-days: 3
+      - name: publish_release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v3
+        with:
+          files: |
+            *.AppImage
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
