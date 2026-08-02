@@ -40,8 +40,8 @@ jobs:
              DESTDIR=/opt/wxW-Temp ninja install
       - name: install_wxwidgets
         run: |
-             sudo cp -a /opt/wxW-Temp/usr/ /usr/
-             ls /opt/wxW-Temp/usr/
+             sudo cp -a /opt/wxW-Temp/usr/. /usr/
+             ls -la /usr/bin
       - name: configure
         run: |
              export CXXFLAGS="-Wall -Wextra -ansi -Werror -Wpedantic"
