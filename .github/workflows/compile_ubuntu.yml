@@ -21,13 +21,13 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 15
-      - name: validate_appdata
-        run: |
-             appstream-util validate data/4ChessViewer.appdata.xml
       - name: install_packages
         run: |
              sudo apt-get update
              sudo apt-get install appstream appstream-util cmake desktop-file-utils doxygen gettext ninja-build pandoc xvfb at-spi2-core dbus po4a lintian weston tidy
+      - name: validate_appdata
+        run: |
+             appstream-util validate data/4ChessViewer.appdata.xml
       - name: build_wxwidgets
         if: steps.cache_wx.outputs.cache-hit != 'true'
         run: |
