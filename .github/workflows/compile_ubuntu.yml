@@ -28,13 +28,26 @@ jobs:
       - name: validate_appdata
         run: |
              appstream-util validate data/4ChessViewer.appdata.xml
+      - name: install_flatpak_builder
+        # if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+             sudo apt-get install -y flatpak flatpak-builder
+             flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
+             flatpak install --user -y flathub org.freedesktop.Platform//25.08 org.freedesktop.Sdk//25.08
+      - name: install_linuxdeploy #appImage
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+             wget -q https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+             chmod +x linuxdeploy-x86_64.AppImage
       - name: cache_wxwidgets
+        if: startsWith(github.ref, 'refs/tags/v') #borrar
         id: cache_wx
         uses: actions/cache@v6
         with:
           path: /opt/wxW-Temp
           key: wxW-${{ env.WX_VERSION }}-${{ hashFiles('.github/workflows/compile_ubuntu.yml') }}
       - name: build_wxwidgets
+        if: startsWith(github.ref, 'refs/tags/v') #borrar
         if: steps.cache_wx.outputs.cache-hit != 'true'
         run: |
              wget -q https://github.com/wxWidgets/wxWidgets/releases/download/v${{ env.WX_VERSION }}/wxWidgets-${{ env.WX_VERSION }}.tar.bz2
@@ -45,46 +58,53 @@ jobs:
              ninja
              DESTDIR=/opt/wxW-Temp ninja install
       - name: install_wxwidgets
+        if: startsWith(github.ref, 'refs/tags/v') #borrar
         run: |
              sudo cp -a /opt/wxW-Temp/usr/. /usr/
              ls -la /usr/bin
       - name: configure
+        if: startsWith(github.ref, 'refs/tags/v') #borrar
         run: |
              export CXXFLAGS="-Wall -Wextra -ansi -Werror -Wpedantic"
              mkdir build
              cd build
              cmake -G "Ninja" ..
       - name: compile
+        if: startsWith(github.ref, 'refs/tags/v') #borrar
         run: |
              cd build
              cmake --build .
-      - name: download_linuxdeploy #appImage
-        #if: startsWith(github.ref, 'refs/tags/v')
-        run: |
-          wget -q https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-          chmod +x linuxdeploy-x86_64.AppImage
       - name: appimage_Image
-        #if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          mkdir -p AppDir/usr/bin
-          cp build/4chessviewer AppDir/usr/bin/
-          chmod +x AppDir/usr/bin/4chessviewer
-          ./linuxdeploy-x86_64.AppImage \
-            --appdir AppDir \
-            --desktop-file data/4ChessViewer.desktop \
-            --icon-file data/4ChessViewer.png \
-            --output appimage
+             mkdir -p AppDir/usr/bin
+             cp build/4chessviewer AppDir/usr/bin/
+             chmod +x AppDir/usr/bin/4chessviewer
+             ./linuxdeploy-x86_64.AppImage \
+               --appdir AppDir \
+               --desktop-file data/4ChessViewer.desktop \
+               --icon-file data/4ChessViewer.png \
+               --output appimage
+      - name: build_flatpak
+        # if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+             flatpak-builder --user --force-clean --repo=flatpak-repo build-F-D data/io.github.bztd.FourChessViewer.yml
+      - name: bundle_flatpak
+        # if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+             flatpak build-bundle flatpak-repo 4ChessViewer.flatpak io.github.bztd.FourChessViewer
       - name: upload_artifact
         uses: actions/upload-artifact@v7
         with:
           name: 4ChessViewer-ubuntu-${{ github.sha }}
-          path: ./4ChessViewer*.AppImage
-          retention-days: 3
+          path: ./*.flatpak
+          retention-days: 1
       - name: publish_release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v3
         with:
           files: |
-            *.AppImage
+            4ChessViewer*.AppImage
+            *.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
