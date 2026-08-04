@@ -6,12 +6,11 @@ ChessFiles::ChessFiles(
                    const wxPoint& pos,
                    const wxSize& _size
                   )
-                  :wxDataViewListCtrl(parent,id,pos,_size,wxDV_ROW_LINES | wxDV_HORIZ_RULES | wxDV_VERT_RULES){
+                  :wxDataViewListCtrl(parent,id,pos,_size,wxDV_ROW_LINES | wxDV_VERT_RULES){
     wxDataViewColumn *p=AppendTextColumn(_("Archivo"), wxDATAVIEW_CELL_INERT, 150);
     //AppendTextColumn(_("Ruta"), wxDATAVIEW_CELL_INERT, 150);
 
     p->SetMinWidth(90);
-
     //wxVector<wxVariant> data;
 
     wxString dirConfig = wxStandardPaths::Get().GetUserLocalDataDir();
