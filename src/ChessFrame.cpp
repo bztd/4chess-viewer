@@ -1,5 +1,6 @@
 
 #include "ChessFrame.h"
+#include "../data/4ChessViewer.xpm"
 
 
 ChessFrame::ChessFrame()
@@ -10,6 +11,8 @@ ChessFrame::ChessFrame()
 
     Maximize(true);
     SetMinSize(wxSize(400, 500));
+
+    SetIcon(wxIcon(FourChessViewer_xpm));
 
     wxMenu* menuFile = new wxMenu;
     menuFile->Append(ID_Load_File, "&Abrir Archivo\tCtrl-A", "Cargar Archivo");
