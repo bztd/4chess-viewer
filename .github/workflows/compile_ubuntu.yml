@@ -11,7 +11,7 @@ env:
   VERSION_UBUNTU: "ubuntu-22.04"
 
 jobs:
-  compile_latest_and_test:
+  compile_latest:
     runs-on: ubuntu-22.04 #ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -56,7 +56,7 @@ jobs:
              ls -la /usr/bin
       - name: configure
         run: |
-             export CXXFLAGS="-Wall -Wextra -ansi -Werror -Wpedantic"
+             export CXXFLAGS="-Wall -Wextra -Werror -Wpedantic"
              mkdir build
              cd build
              cmake -G "Ninja" ..
@@ -86,7 +86,10 @@ jobs:
           
   build_flatpak:
     if: startsWith(github.ref, 'refs/tags/v')
+    needs: compile_latest
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-25.08
       options: --privileged
