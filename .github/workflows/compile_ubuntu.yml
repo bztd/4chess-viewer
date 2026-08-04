@@ -7,7 +7,8 @@ permissions:
   
 env:
   WX_VERSION: "3.3.3"
-  # BUILD_TYPE: Release
+  ID_FP: "io.github.bztd.FourChessViewer"
+  VERSION_UBUNTU: "ubuntu-22.04"
 
 jobs:
   compile_latest_and_test:
@@ -24,30 +25,22 @@ jobs:
       - name: install_packages
         run: |
              sudo apt-get update
-             sudo apt-get install appstream appstream-util cmake desktop-file-utils doxygen gettext ninja-build pandoc xvfb at-spi2-core dbus po4a lintian weston tidy fuse libfuse2 libgtk-3-dev
+             sudo apt-get install appstream appstream-util cmake desktop-file-utils doxygen gettext ninja-build pandoc xvfb at-spi2-core dbus po4a lintian weston tidy libgtk-3-dev
       - name: validate_appdata
         run: |
              appstream-util validate data/4ChessViewer.appdata.xml
-      - name: install_flatpak_builder
-        # if: startsWith(github.ref, 'refs/tags/v')
-        run: |
-             sudo apt-get install -y flatpak flatpak-builder
-             flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
-             flatpak install --user -y flathub org.freedesktop.Platform//25.08 org.freedesktop.Sdk//25.08
       - name: install_linuxdeploy #appImage
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
              wget -q https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
              chmod +x linuxdeploy-x86_64.AppImage
       - name: cache_wxwidgets
-        if: startsWith(github.ref, 'refs/tags/v') #borrar
         id: cache_wx
         uses: actions/cache@v6
         with:
           path: /opt/wxW-Temp
-          key: wxW-${{ env.WX_VERSION }}-${{ hashFiles('.github/workflows/compile_ubuntu.yml') }}
+          key: wxW-${{ env.WX_VERSION }}-${{ env.VERSION_UBUNTU }}
       - name: build_wxwidgets
-        if: startsWith(github.ref, 'refs/tags/v') #borrar
         if: steps.cache_wx.outputs.cache-hit != 'true'
         run: |
              wget -q https://github.com/wxWidgets/wxWidgets/releases/download/v${{ env.WX_VERSION }}/wxWidgets-${{ env.WX_VERSION }}.tar.bz2
@@ -58,19 +51,16 @@ jobs:
              ninja
              DESTDIR=/opt/wxW-Temp ninja install
       - name: install_wxwidgets
-        if: startsWith(github.ref, 'refs/tags/v') #borrar
         run: |
              sudo cp -a /opt/wxW-Temp/usr/. /usr/
              ls -la /usr/bin
       - name: configure
-        if: startsWith(github.ref, 'refs/tags/v') #borrar
         run: |
              export CXXFLAGS="-Wall -Wextra -ansi -Werror -Wpedantic"
              mkdir build
              cd build
              cmake -G "Ninja" ..
       - name: compile
-        if: startsWith(github.ref, 'refs/tags/v') #borrar
         run: |
              cd build
              cmake --build .
@@ -85,26 +75,33 @@ jobs:
                --desktop-file data/4ChessViewer.desktop \
                --icon-file data/4ChessViewer.png \
                --output appimage
-      - name: build_flatpak
-        # if: startsWith(github.ref, 'refs/tags/v')
-        run: |
-             flatpak-builder --user --force-clean --repo=flatpak-repo build-F-D data/io.github.bztd.FourChessViewer.yml
-      - name: bundle_flatpak
-        # if: startsWith(github.ref, 'refs/tags/v')
-        run: |
-             flatpak build-bundle flatpak-repo 4ChessViewer.flatpak io.github.bztd.FourChessViewer
-      - name: upload_artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: 4ChessViewer-ubuntu-${{ github.sha }}
-          path: ./*.flatpak
-          retention-days: 1
-      - name: publish_release
+      - name: publish_appImage
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v3
         with:
           files: |
             4ChessViewer*.AppImage
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+  build_flatpak:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-25.08
+      options: --privileged
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Build
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: 4ChessViewer.flatpak
+          manifest-path: data/${{ env.ID_FP }}.yml
+      - name: publish_flatpak
+        uses: softprops/action-gh-release@v3
+        with:
+          files: |
             *.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

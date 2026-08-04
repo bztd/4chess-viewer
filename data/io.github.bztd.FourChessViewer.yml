@@ -45,4 +45,4 @@ modules:
       - type: git
         url: https://github.com/bztd/FourChessViewer.git
         # tag: Version-26.07.1
-        commit: 350dbea8b9717355e38a2b9db4455c63672b8262
+        commit: da98cb016f2209ab3ae6053521c3c71f9d1ff3b4
